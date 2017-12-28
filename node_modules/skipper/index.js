@@ -56,11 +56,25 @@ module.exports = function toParseHTTPBody(options) {
     // Use custom body parser error handler if provided, otherwise
     // just forward the error to the next Express error-handling middleware.
     var handleError = function (err) {
+
       if (options.onBodyParserError) {
-        return options.onBodyParserError(err, req, res, next);
+        try {
+          // If the logic is an async function, attach a `.catch()` to handle rejections.
+          if (options.onBodyParserError.constructor.name === 'AsyncFunction') {
+            var promise = options.onBodyParserError(err, req, res, next);
+            promise.catch(function(err){ next(err); });
+          }
+          // Otherwise just run the synchronous function.
+          else {
+            return options.onBodyParserError(err, req, res, next);
+          }
+        } catch (e) { return next(e); }
+        return;
       }
-      return next(err);
-    };
+      else {
+        return next(err);
+      }
+    };//</handleError>
 
     // Optimization: skip bodyParser for GET, OPTIONS, or body-less requests.
     if (req.method.toLowerCase() === 'get' || req.method.toLowerCase() === 'options' || req.method.toLowerCase() === 'head') {
@@ -133,7 +147,14 @@ module.exports = function toParseHTTPBody(options) {
             // Revert content-type to what it originally was.
             // This is so we don't inadvertently corrupt `req.headers`--
             // our apps' actions might be looking for 'em.
-            req.headers['content-type'] = backupContentType;
+            //
+            // If the original request didn't include a content-type,
+            // remove the header entirely.
+            if (backupContentType) {
+              req.headers['content-type'] = backupContentType;
+            } else {
+              delete req.headers['content-type'];
+            }
 
             // If an error occurred in the retry, it's not actually an error
             // (we can't assume EVERY requeset was intended to be JSON)

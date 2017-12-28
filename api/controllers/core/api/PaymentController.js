@@ -89,6 +89,7 @@ module.exports = {
                         var client_secret = data[0].client_secret;
                     }
 
+
                     ModulePaymentPaypalService.paymentActionWithPaypal(req, res, mode, client_id, client_secret, itemList, amount);
 
                     callback(null, 'done')
@@ -108,11 +109,37 @@ module.exports = {
 
     paypalExecuteSuccess: function (req, res) {
 
-        var mode = 'sandbox';
-        var client_id = 'EBWKjlELKMYqRNQ6sYvFo64FtaRLRR5BdHEESmha49TM';
-        var client_secret = 'EO422dn3gQLgDbuwqTjzrFgFtaRLRR5BdHEESmha49TM';
 
-        ModulePaymentPaypalService.paymentPaypalExecute(req, res, mode, client_id, client_secret);
+
+
+        // these values must come from the database
+
+        var categoryModule = "payment";
+        var nameModule = "paypal";
+
+        CoreReadDbService.getConfigurationOneModule(categoryModule, nameModule).then(function (data) {
+
+
+            if (typeof data[0] == "undefined") {
+
+                var url = '/?missing_configuration_paypal=1';
+                return res.redirect(url);
+
+            }
+
+            var modeDemo = data[0].mode;
+
+            if (modeDemo == 'live' || modeDemo == 'sandbox') {
+                var mode = modeDemo;
+                var client_id = data[0].client_id;
+                var client_secret = data[0].client_secret;
+            }
+
+            ModulePaymentPaypalService.paymentPaypalExecute(req, res, mode, client_id, client_secret);
+
+
+        })
+
     },
 
     paypalExecuteCancel: function (req, res) {
@@ -143,37 +170,6 @@ module.exports = {
 }
 
 
-/*function getClientIdPaypal (){
-    var output = '';
-    return output;
-}
-
-function getClientSecretPaypal (){
-
-    var output = '';
-    return output;
-}*/
-
-/*function getPaypalMode (){
-
-    var arg1 = 1 ;
-    var categoryModule = 'payment';
-    var nameModule = 'paypal';
-    var output = 'sandbox';
-
-   // CoreReadDbService.getConfigurationOneModule(categoryModule, nameModule).then(function (data) {
-  //      console.log('getPaypalMode - data', data);
-
-        //callback(null, arg1, dataWithPriceOrder)
-
-   //     return output;
-
-   // })
-
-    return output;
-
-}*/
-
 
 function getItemListFromDataOrder(input1, input2, currency) {
 
@@ -195,24 +191,24 @@ function getItemListFromDataOrder(input1, input2, currency) {
     })
 
     /*var output = {
-        "items": [
+     "items": [
 
-            {
-                "name": input[0].name,
-                "sku": "item12222",
-                "price": input[0].price,
-                "currency": currency,
-                "quantity": 1
-            }
+     {
+     "name": input[0].name,
+     "sku": "item12222",
+     "price": input[0].price,
+     "currency": currency,
+     "quantity": 1
+     }
 
-            /*,
-             {
-             "name": "item2",
-             "sku": "item2",
-             "price": "0.00",
-             "currency": "USD",
-             "quantity": 1
-             }*/
+     /*,
+     {
+     "name": "item2",
+     "sku": "item2",
+     "price": "0.00",
+     "currency": "USD",
+     "quantity": 1
+     }*/
     //]
     //};
 
