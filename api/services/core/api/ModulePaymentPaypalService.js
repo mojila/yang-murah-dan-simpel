@@ -143,7 +143,8 @@ module.exports = {
 
             var payerId = req.query.PayerID;
             var paymentId = req.query.paymentId;
-            var execute_payment_json = {
+
+            /*var execute_payment_json = {
                 "payer_id": payerId,
                 "transactions": [{
                     "amount": {
@@ -151,7 +152,15 @@ module.exports = {
                         "total": total
                     }
                 }]
+            };*/
+
+
+            var execute_payment_json = {
+                "payer_id": payerId
             };
+
+            console.log ("payerid ", payerId);
+            console.log("paymentId", paymentId);
 
             paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
                 if (error) {
