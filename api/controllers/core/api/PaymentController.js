@@ -170,37 +170,6 @@ module.exports = {
 }
 
 
-/*function getClientIdPaypal (){
- var output = '';
- return output;
- }
-
- function getClientSecretPaypal (){
-
- var output = '';
- return output;
- }*/
-
-/*function getPaypalMode (){
-
- var arg1 = 1 ;
- var categoryModule = 'payment';
- var nameModule = 'paypal';
- var output = 'sandbox';
-
- // CoreReadDbService.getConfigurationOneModule(categoryModule, nameModule).then(function (data) {
- //      console.log('getPaypalMode - data', data);
-
- //callback(null, arg1, dataWithPriceOrder)
-
- //     return output;
-
- // })
-
- return output;
-
- }*/
-
 
 function getItemListFromDataOrder(input1, input2, currency) {
 
