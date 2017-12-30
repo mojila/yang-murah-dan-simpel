@@ -1,6 +1,12 @@
 Contributing to Ymple ECommerce
 --------------------------
 
+
+
+For PR please use the branch 1.0.0
+
+
+
 Ymple Ecommerce is an open-source e-commerce solution. Everyone is welcome and even encouraged to contribute with their own improvements.
 
 Ymple ECommerce is written mostly with Node.js and the framework Sails.
