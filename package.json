@@ -52,7 +52,7 @@
     "promise-async": "^0.2.0",
     "underscore":"^1.8.3",
     "rc": "~1.2.1",
-    "sails": "^1.0.0-36",
+    "sails": "^1.0.0-42",
     "sails-disk": "~0.10.0",
     "sails-hook-autoreload": "^1.0.0",
     "sails-hook-i18n": "^0.1.1",
