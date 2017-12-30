@@ -3,4 +3,4 @@ assets/images/product
 .tmp/public/fonts/
 .tmp
 data/
-laternode_modules/
+node_modules/
