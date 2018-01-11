@@ -1,8 +1,7 @@
 {
   "name": "ymple-ecommerce",
   "author": {
-    "name": "Fabien Thetis",
-    "email": "@thetisfabien"
+    "name": "Mojila"
   },
   "homepage": "https://www.ymple.com",
   "private": false,
@@ -50,7 +49,6 @@
     "nodemailer": "^4.0.1",
     "paypal-rest-sdk": "^1.7.1",
     "promise-async": "^0.2.0",
-    "underscore":"^1.8.3",
     "rc": "~1.2.1",
     "sails": "^1.0.0-42",
     "sails-disk": "~0.10.0",
@@ -59,10 +57,11 @@
     "sails-hook-nested-services": "^0.1.0",
     "sails-hook-orm": "^1.0.9",
     "sails-hook-sockets": "^0.13.11",
-    "sails-mongo": "^0.12.*",
+    "sails-mongo": "^0.12.2",
     "shortid": "^2.0.1",
     "skipper-gridfs": "^0.5.2",
-    "swig": "^1.4.2"
+    "swig": "^1.4.2",
+    "underscore": "^1.8.3"
   },
   "scripts": {
     "start": "node app.js",
@@ -71,7 +70,7 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/Ymple/ymple-ecommerce.git"
+    "url": "git://github.com/mojila/yang-murah-dan-simpel.git"
   },
   "license": "MIT",
   "devDependencies": {
